@@ -1,4 +1,5 @@
 (function($) {
+    //define all the necessary defaults
     var _defaults = {
         content: null,
         cancelDefault: true,
@@ -46,12 +47,15 @@
         eventNamespace: 'jqBbl'
     };
 
+    //allowed position values (normalized)
+    //  because single/double letters are easier to handle (e.g. spelling errors)
     var availablePositionValues = {
         center: /^(c|m)$/,
         x: /^(l|cl|c|cr|r)$/,
         y: /^(t|ct|c|cb|b)$/
     };
 
+    //retrieve the second piece of the position
     function getSubPosition(str) {
         var subpos = '';
 
@@ -63,6 +67,7 @@
         return subpos;
     }
 
+    //get a position object
     function getPositionObject(position) {
         //split into x and y components
         var pos = position.split(" ");
@@ -88,6 +93,7 @@
         return obj;
     }
 
+    //calculate the position of the bubble
     function calculatePosition(bbl, target, options) {
         var css = {};
 
@@ -158,6 +164,7 @@
         return css;
     }
 
+    //find any edges of the bubble outside the viewport
     function getOffScreenEdges(viewport, bbl) {
         var out = [];
 
@@ -174,6 +181,7 @@
         return out.length > 0 ? out : false;
     }
 
+    //adjust the position of the bubble
     function adjustPosition(bbl, target, options, css) {
         var w = $(window);
 
@@ -200,9 +208,11 @@
         //merge the adjustments into a new position
         var newpos = {};
         for (var e in edge) {
-            newpos = $.extend(newpos, options.positionAdjust[edge]);
+            console.log(options.positionAdjust[edge[e]]);
+            newpos = $.extend(newpos, options.positionAdjust[edge[e]]);
         }
 
+        console.log(newpos);
         var newopts = $.extend(true, {}, options, {position: newpos});
 
         return calculatePosition(bbl, target, newopts);

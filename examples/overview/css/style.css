@@ -134,8 +134,8 @@ input {
 }
 
 .cursePrompt a {
-    background: -moz-linear-gradient(-90deg, #343A2A, #D76203);
-    background: -webkit-gradient(linear, left top, left bottom, from(#343A2A), to(#D76203));
+    background: -moz-linear-gradient(-90deg, #EFBB31, #D76203);
+    background: -webkit-gradient(linear, left top, left bottom, from(#EFBB31), to(#D76203));
     padding: .5em;
     margin-left: .5em;
     -moz-border-radius: .5em;
@@ -157,6 +157,27 @@ input {
     left: 50%;
     margin-left: -1em;
     clip: rect(-.4em, 2.5em, 1em, -.3em);
+}
+
+.cursePrompt.hCenterLeft .arrow {
+    left: .7em;
+    margin-left: 0;
+}
+
+.cursePrompt.hCenterRight .arrow {
+    left: auto;
+    right: .7em;
+    margin-left: 0;
+}
+
+.cursePrompt.top .arrow {
+    clip: rect(1em, 2.5em, 2.4em, -.3em);
+    top: auto;
+    bottom: -1.08em;
+}
+
+.cursePrompt.top {
+    margin-top: -.6em;
 }
 
 .cursePrompt .arrow div {
