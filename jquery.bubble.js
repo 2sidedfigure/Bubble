@@ -234,9 +234,10 @@
 
         //always need a show event
         be.bind(options.showEvent + '.' + options.eventNamespace, function(e) {
-            var target = $(e.target);
+            var origTarget = $(e.target);
+            var target = origTarget.closest(selector);
 
-            if (target.is(selector) || target.parents(selector).size() > 0) {
+            if (target.length > 0) {
                 //create (if necessary)
                 if (!bbl) {
                     //use transparency to hide so width and height can still be calculated
@@ -336,9 +337,10 @@
         //may not always need/want/have a hide event
         if (options.hideEvent) {
             be.bind(options.hideEvent + '.' + options.eventNamespace, function(e) {
-                var target = $(e.target);
+                var origTarget = $(e.target);
+                var target = origTarget.closest(selector);
 
-                if (target.is(selector) || target.parents(selector).size() > 0) {
+                if (target.length > 0) {
                     //hide bubble
                     bbl.trigger('destroy');
                 }
