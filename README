@@ -1,0 +1,13 @@
+jQuery Bubble Plugin
+originally created by ± ryan (ryan@2sidedfigure.net), 2010
+
+Provides the ability to add various types of 'bubbles' to the interface, like tooltips, context menus, modals, dialogs, etc.
+
+jquery.bubble.js:
+The plugin itself. Built for jQuery 1.3.x, should be forward-compatible with the 1.4.x line, although could be optimized further for that version.
+
+jquery.js:
+jQuery 1.3.x. Included for reference and for the benefit of the examples utilizing the plugin.
+
+examples:
+Various example(s) of the bubble in action.

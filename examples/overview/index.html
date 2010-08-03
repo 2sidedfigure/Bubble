@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    	<title>Bubble Test Harness</title>
+    	
+    	<link rel="stylesheet" type="text/css" href="css/style.css" />
+    	
+    	<script type="text/javascript" src="../../jquery.js"></script>
+    	<script type="text/javascript" src="../../jquery.bubble.js"></script>
+    	<script type="text/javascript">
+    	    
+    	    //stars
+    	    var starText = ['Are you kidding me?',
+    	                    'Bring your umbrella',
+    	                    'Chance of showers',
+    	                    'Partly sunny',
+    	                    'Good day sunshine!'];
+    	                    
+    	    function starContent(target) {
+    	        if (this.children('div.arrow').size() == 0) {
+    	            this.append('<div class="arrow"><div></div></div><p></p>');
+    	        }
+    	        
+    	        var li = target.closest('li');
+    	        var num = li.parent().children().index(li);
+    	        this.find('p').text(starText[num]);
+    	    }
+    	    
+    	    //profanity
+    	    function profanityHoverContent(target) {
+    	        this.text('Show/hide profanity sidewide');
+    	    }
+    	    
+    	    var profanityPrompt = '<div>' +
+    	                          '<div class="arrow"><div></div></div>' +
+    	                          '<p>This person likes to curse like a sailor...do you want to see profanity site-wide?</p>' +
+    	                          '<p class="actions">' +
+    	                          '<a href="#" class="yes">Yaaarr!</a>' +
+    	                          '<a href="#" class="no">Naaarr!</a>' +
+    	                          '</p>' +
+    	                          '</div>';
+    	    
+    	    function profanityClickContent() {
+    	        if (this.children().size() > 0) {
+    	            this.trigger('destroy');
+    	            return;
+    	        }
+    	        
+    	        var self = this;
+    	        var content = $(profanityPrompt);
+    	        content.find('a').bind('click', function() { self.trigger('destroy'); return false; });
+    	        
+    	        this.append(content);
+    	    }
+    	    
+    	    //where
+    	    function whereContent() {
+    	        this.text('Start typing and we\'ll help find your location');
+    	    }
+    	    
+    	    //get started
+    	    $(document).ready(function() {    	        
+        	    $('#stars a').bubble({ position: 'right center',
+        	                            content: starContent,
+        	                            addClass: 'starBbl' });
+        	    //$('#stars').find('ol li a').bubble();
+        	    //$('#stars').children('ol').find('a').bubble();
+        	    //$('#stars').children('ol').children().children().bubble();
+    	    
+        	    //var stars = $('#stars');
+        	    //var starsOl = stars.find('ol');
+    	    
+        	    //stars.find('a').bubble();
+        	    //starsOl.find('a').bubble();
+        	    
+        	    // $('span.curse').bubble({ position: 'center top',
+        	    //                                           content: profanityHoverContent,
+        	    //                                           addClass: 'curseHover',
+        	    //                                           preventOffScreen: true,
+        	    //                                           positionAdjust: {
+        	    //                                               l: 'center-left ?',
+        	    //                                               r: 'center-right ?'
+        	    //                                           } });
+        	    //                 $('span.curse').bubble({ position: 'center bottom',
+        	    //                                           content: profanityClickContent,
+        	    //                                           showEvent: 'click',
+        	    //                                           hideEvent: null,
+        	    //                                           addClass: 'cursePrompt' });
+        	                              
+                $.bubble('span.curse', { position: 'center top',
+          	                              content: profanityHoverContent,
+          	                              addClass: 'curseHover',
+          	                              preventOffScreen: true,
+          	                              positionAdjust: {
+          	                                  l: 'center-left ?',
+          	                                  r: 'center-right ?'
+          	                              } });
+          	    $.bubble('span.curse', { position: 'center bottom',
+          	                              content: profanityClickContent,
+          	                              showEvent: 'click',
+          	                              hideEvent: null,
+          	                              addClass: 'cursePrompt' });
+        	                              
+        	    $('form input').bubble({ position: 'center-left bottom',
+        	                              showEvent: 'focus',
+        	                              hideEvent: 'blur',
+        	                              addClass: 'autocomplete',
+        	                              bindElement: 'form input',
+        	                              content: whereContent });
+    	    });
+    	    
+    	</script>
+    </head>
+
+    <body>
+        <h1>Bubble Test Harness</h1>
+        <p>jQuery v.1.3.x for maximum compatibility...</p>
+        
+        <h2>Stars</h2>
+        <div id="stars">
+            <h3>Fixed hover with generated content</h3>
+            <ol>
+                <li><a href="#">Select</a></li>
+                <li><a href="#">Select</a></li>
+                <li><a href="#">Select</a></li>
+                <li><a href="#">Select</a></li>
+                <li><a href="#">Select</a></li>
+            </ol>
+        </div>
+        
+        <h2>Profanity</h2>
+        <div id="profanity">
+            <h3>Click with always-on-screen info/action (bind-once)</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin mattis adipiscing lorem, ut lacinia risus sollicitudin at. In pellentesque nunc vitae lacus venenatis ut ornare nunc sagittis. Curabitur venenatis magna vitae velit iaculis ornare condimentum orci luctus. Nulla lacus odio, sodales nec suscipit at, tincidunt a orci. Aenean nec cursus odio. Quisque nibh magna, hendrerit a iaculis sed, feugiat in tortor. Maecenas ligula lectus, gravida rhoncus tincidunt eu, venenatis nec massa. <span class="curse">F*@#!?g</span> class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla facilisi. Nulla facilisi. Pellentesque purus metus, viverra ornare egestas eu, elementum eu dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis molestie pretium. Cras porttitor risus eget risus interdum viverra. Integer sed elit eu sem aliquet varius non <span class="curse">F*@#!?g</span> at sem. Nulla facilisi.</p>
+        </div>
+        
+        <h2>What? Where?</h2>
+        <div id="where">
+            <h3>Focus and blur for an auto-complete field</h3>
+            <form>
+                <label for="formWhat">Where?</label>
+                <input type="text" id="formWhat" name="formWhat" />
+                
+                <label for="formWhere">Where?</label>
+                <input type="text" id="formWhere" name="formWhere" />
+            </form>
+        </div>
+        
+        <h2>Add Photos or Videos</h2>
+        <div id="addContent">
+            <h3>Click with always-on-screen info/action (bind-once)</h3>
+            <p>Be the first to <a href="#">add photos or videos</a>!</p>
+        </div>
+    </body>
+</html>
