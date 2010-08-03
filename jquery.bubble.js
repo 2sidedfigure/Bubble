@@ -208,11 +208,9 @@
         //merge the adjustments into a new position
         var newpos = {};
         for (var e in edge) {
-            console.log(options.positionAdjust[edge[e]]);
             newpos = $.extend(newpos, options.positionAdjust[edge[e]]);
         }
 
-        console.log(newpos);
         var newopts = $.extend(true, {}, options, {position: newpos});
 
         return calculatePosition(bbl, target, newopts);
