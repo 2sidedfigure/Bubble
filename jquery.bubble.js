@@ -5,6 +5,8 @@
         cancelDefault: true,
         showEvent: 'mouseover',
         hideEvent: 'mouseout',
+        preventDefaultShowEvent: true,
+        preventDefaultHideEvent: true,
 
         //callbacks
         onShow: null,
@@ -339,6 +341,10 @@
 
                 //show
                 bbl.trigger('show');
+
+                //prevent the default?
+                if (options.preventDefaultShowEvent)
+                    e.preventDefault();
             }
         });
 
@@ -352,6 +358,10 @@
                     //hide bubble
                     bbl.trigger('destroy');
                 }
+
+                //prevent the default?
+                if (options.preventDefaultHideEvent)
+                    e.preventDefault();
             });
         }
     }
