@@ -330,14 +330,18 @@
                     bbl.html(target.clone(true));
                 }
 
-                //get position
-                var css = calculatePosition(bbl, target, options);
+                bbl.unbind('reposition').bind('reposition', function() {
+                    //get position
+                    var posCss = calculatePosition(bbl, target, options);
 
-                //adjust position if called for and necessary
-                if (options.preventOffScreen)
-                    css = adjustPosition(bbl, target, options, css);
+                    //adjust position if called for and necessary
+                    if (options.preventOffScreen)
+                        posCss = adjustPosition(bbl, target, options, posCss);
 
-                bbl.css(css);
+                    bbl.css(posCss);
+                });
+
+                bbl.trigger('reposition');
 
                 //show
                 bbl.trigger('show');
